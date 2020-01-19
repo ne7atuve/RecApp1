@@ -41,7 +41,12 @@
             this.propertyGrid = new System.Windows.Forms.PropertyGrid();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.dgvRachetdan = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.btnDelete_Graf = new System.Windows.Forms.Button();
             this.lblPover_Nagrev = new System.Windows.Forms.Label();
             this.lblKonech_Temp = new System.Windows.Forms.Label();
             this.btnTochech_Graf = new System.Windows.Forms.Button();
@@ -52,10 +57,6 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.programBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.frmMainBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -104,16 +105,18 @@
             // 
             // tabControl1
             // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Location = new System.Drawing.Point(3, 3);
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(995, 404);
-            this.tabControl1.TabIndex = 0;
+            this.tabControl1.TabIndex = 1;
             // 
             // tabPage2
             // 
@@ -128,10 +131,15 @@
             // 
             // propertyGrid
             // 
+            this.propertyGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.propertyGrid.Location = new System.Drawing.Point(6, 3);
             this.propertyGrid.Name = "propertyGrid";
-            this.propertyGrid.Size = new System.Drawing.Size(492, 343);
+            this.propertyGrid.Size = new System.Drawing.Size(973, 369);
             this.propertyGrid.TabIndex = 0;
+            this.propertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.propertyGrid_PropertyValueChanged);
+            this.propertyGrid.Click += new System.EventHandler(this.propertyGrid_Click);
             // 
             // tabPage1
             // 
@@ -152,15 +160,46 @@
             this.Column2,
             this.Column3,
             this.Column4});
-            this.dgvRachetdan.Location = new System.Drawing.Point(-3, 0);
+            this.dgvRachetdan.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvRachetdan.Location = new System.Drawing.Point(3, 3);
             this.dgvRachetdan.Name = "dgvRachetdan";
             this.dgvRachetdan.ReadOnly = true;
-            this.dgvRachetdan.Size = new System.Drawing.Size(777, 346);
+            this.dgvRachetdan.Size = new System.Drawing.Size(981, 372);
             this.dgvRachetdan.TabIndex = 0;
             this.dgvRachetdan.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
+            // Column1
+            // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.Column1.HeaderText = "Расчетные данные";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 117;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Единица измерения";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Width = 150;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "Значение";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.Width = 150;
+            // 
+            // Column4
+            // 
+            this.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column4.HeaderText = "Физический смысл";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.btnDelete_Graf);
             this.tabPage3.Controls.Add(this.lblPover_Nagrev);
             this.tabPage3.Controls.Add(this.lblKonech_Temp);
             this.tabPage3.Controls.Add(this.btnTochech_Graf);
@@ -173,6 +212,17 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "График";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // btnDelete_Graf
+            // 
+            this.btnDelete_Graf.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDelete_Graf.Location = new System.Drawing.Point(712, 182);
+            this.btnDelete_Graf.Name = "btnDelete_Graf";
+            this.btnDelete_Graf.Size = new System.Drawing.Size(120, 32);
+            this.btnDelete_Graf.TabIndex = 5;
+            this.btnDelete_Graf.Text = "Удалить график";
+            this.btnDelete_Graf.UseVisualStyleBackColor = true;
+            this.btnDelete_Graf.Click += new System.EventHandler(this.btnDelete_Graf_Click);
             // 
             // lblPover_Nagrev
             // 
@@ -189,6 +239,7 @@
             // 
             // lblKonech_Temp
             // 
+            this.lblKonech_Temp.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.lblKonech_Temp.AutoSize = true;
             this.lblKonech_Temp.Location = new System.Drawing.Point(368, 287);
             this.lblKonech_Temp.Name = "lblKonech_Temp";
@@ -199,7 +250,8 @@
             // 
             // btnTochech_Graf
             // 
-            this.btnTochech_Graf.Location = new System.Drawing.Point(444, 316);
+            this.btnTochech_Graf.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnTochech_Graf.Location = new System.Drawing.Point(578, 326);
             this.btnTochech_Graf.Name = "btnTochech_Graf";
             this.btnTochech_Graf.Size = new System.Drawing.Size(210, 36);
             this.btnTochech_Graf.TabIndex = 2;
@@ -209,11 +261,14 @@
             // 
             // chart1
             // 
+            this.chart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             chartArea1.Name = "ChartArea1";
             this.chart1.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(157, 0);
+            this.chart1.Location = new System.Drawing.Point(163, 6);
             this.chart1.Name = "chart1";
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
@@ -236,7 +291,8 @@
             // 
             // btnPostr_Graf
             // 
-            this.btnPostr_Graf.Location = new System.Drawing.Point(191, 316);
+            this.btnPostr_Graf.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnPostr_Graf.Location = new System.Drawing.Point(112, 325);
             this.btnPostr_Graf.Name = "btnPostr_Graf";
             this.btnPostr_Graf.Size = new System.Drawing.Size(198, 37);
             this.btnPostr_Graf.TabIndex = 0;
@@ -246,9 +302,10 @@
             // 
             // btnReport
             // 
+            this.btnReport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnReport.Location = new System.Drawing.Point(235, 90);
             this.btnReport.Name = "btnReport";
-            this.btnReport.Size = new System.Drawing.Size(75, 23);
+            this.btnReport.Size = new System.Drawing.Size(124, 33);
             this.btnReport.TabIndex = 3;
             this.btnReport.Text = "Отчет";
             this.btnReport.UseVisualStyleBackColor = true;
@@ -267,38 +324,14 @@
             // 
             // btnSave
             // 
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSave.Location = new System.Drawing.Point(530, 90);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(119, 33);
             this.btnSave.TabIndex = 1;
-            this.btnSave.Text = "Вывести данные";
+            this.btnSave.Text = "Расчет";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Расчетные данные";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Единица измерения";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "Значение";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "Физический смысл";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            this.Column4.Width = 440;
             // 
             // frmMain
             // 
@@ -307,7 +340,7 @@
             this.ClientSize = new System.Drawing.Size(995, 575);
             this.Controls.Add(this.splitContainer1);
             this.Name = "frmMain";
-            this.Text = "Form1";
+            this.Text = "Расчет керамического рекуператора";
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -350,6 +383,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.Button btnDelete_Graf;
     }
 }
 

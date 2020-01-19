@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
+
 namespace RecApp
 {
     public partial class frmMain : Form
@@ -26,6 +27,7 @@ namespace RecApp
             InitializeComponent();
             CenterToScreen();
         }
+        
 
         private void btnExit_Click(object sender, EventArgs e)
         {
@@ -142,7 +144,7 @@ namespace RecApp
                 // Сохранить параметры доступа к базе данных на диск для последующего вызова
                 ml.SaveData(ml, fileDefaultUserAppDataPath.ToString());
             }
-
+            #region Построение графика
             // Настроить элементы формы
             FormOptionDefault();
 
@@ -157,6 +159,19 @@ namespace RecApp
             chart1.ChartAreas[0].CursorY.IsUserSelectionEnabled = true;
             chart1.ChartAreas[0].AxisY.ScaleView.Zoomable = true;
             chart1.ChartAreas[0].AxisY.ScrollBar.IsPositionedInside = true;
+            #endregion Построение графика
+            btnReport.Enabled = false;
+            btnPostr_Graf.Enabled = false;
+            btnTochech_Graf.Enabled = false;
+
+            
+            
+        }
+
+        private void propertyGrid_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+        {
+            propertyGrid.Text = "";
+            btnReport.Enabled = false;
         }
 
 
@@ -165,11 +180,13 @@ namespace RecApp
         /// </summary>  
         private void FormOptionDefault()
         {
+            
             // Показать в заголовке главного окна номер текущей версии и пользвателя
             this.Text = this.Text + " [версия " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + "]";
 
             // Установить редактируемый объект в PropertyGrid
             propertyGrid.SelectedObject = new DataInput(ml);
+
 
             #region -- Заполнить перечень показателей в отчет: исходные данные
             //if (File.Exists("cfgInputToRep.xml"))
@@ -257,7 +274,7 @@ namespace RecApp
 
 
 
-
+        #region Вывод элементов
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
@@ -338,14 +355,19 @@ namespace RecApp
             
 
         }
-
+        #endregion Вывод элементов
         private void btnSave_Click(object sender, EventArgs e)
         {
             dgvRachetdan.Rows.Clear();
+            btnReport.Enabled = true;
+            btnPostr_Graf.Enabled = true;
+            btnTochech_Graf.Enabled = true;
+            MessageBox.Show("Расчет успешно завершен!", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            tabControl1.SelectedIndex = 1;
 
             //dgvRachetdan.Rows.Add("dbdddfdfVв'", "м3/с", Math.Round(ml.tv1, 0), "количество воздуха,поступающее в рекуператор");
 
-
+            #region Вывод расчетных данных в DataGrid
             dgvRachetdan.Rows.Add("Vв'", "м3/с", Math.Round(ml.get_Vв1(), 4), "количество воздуха,поступающее в рекуператор");
             dgvRachetdan.Rows.Add("Vв.пр", "м3/с", Math.Round(ml.get_Vv_pr(), 5), "количество воздуха,просасываемое через неплотности на сторону дыма в рекуп.");
             dgvRachetdan.Rows.Add("Vд'", "м3/с", Math.Round(ml.get_Vд1(), 4), "количество дыма,поступающее в рекуператор");
@@ -374,17 +396,21 @@ namespace RecApp
             dgvRachetdan.Rows.Add("Qв", "Вт", Math.Round(ml.get_Qв()), "количество теплоты,передаваемое воздуху в рекуператоре");
             dgvRachetdan.Rows.Add("F", "м2", Math.Round(ml.get_F(), 2), "поверхность нагрева");
             dgvRachetdan.Rows.Add("F'", "м2", Math.Round(ml.get_F1(), 1), "поверхность рекуператора,принятого при компоновке");
+            #endregion Вывод расчетных данных в DataGrid
         }
 
         private void btnGraf_Click(object sender, EventArgs e)
         {
             PlotSurface2DDemo _p = new PlotSurface2DDemo(ml);
             _p.ShowDialog();
+            
         }
 
         private void btnReport_Click(object sender, EventArgs e)
         {
             CreateReportViewer();
+            
+
         }
 
         /// <summary>
@@ -530,6 +556,7 @@ namespace RecApp
 
         private void btnPostr_Graf_Click(object sender, EventArgs e)
         {
+            #region Обычный график
             chart1.Series[0].Points.Clear();
             chart1.Series[0].Points.AddXY(0, 0);
             chart1.Series[0].Points.AddXY(25, 19.9);
@@ -556,15 +583,16 @@ namespace RecApp
             chart1.Series[0].Points.AddXY(575, 2681.3);
             chart1.Series[0].Points.AddXY(600, 2865.8);
             chart1.Series[0].Points.AddXY(625, 3060.8);
+            #endregion Обычный график
 
-       
 
 
         }
 
         private void btnTochech_Graf_Click(object sender, EventArgs e)
         {
-                chart1.Series[1].Points.Clear();
+            #region Точечный график
+            chart1.Series[1].Points.Clear();
                 chart1.Series[1].Points.AddXY(0, 0);
                 chart1.Series[1].Points.AddXY(25, 19.9);
                 chart1.Series[1].Points.AddXY(50, 107.8);
@@ -590,7 +618,8 @@ namespace RecApp
                 chart1.Series[1].Points.AddXY(575, 2681.3);
                 chart1.Series[1].Points.AddXY(600, 2865.8);
                 chart1.Series[1].Points.AddXY(625, 3060.8);
-            
+            #endregion Точечный график
+
         }
 
         private void chart1_Click(object sender, EventArgs e)
@@ -608,7 +637,15 @@ namespace RecApp
 
         }
 
+        private void propertyGrid_Click(object sender, EventArgs e)
+        {
+            
+        }
 
-
+        private void btnDelete_Graf_Click(object sender, EventArgs e)
+        {
+            chart1.Series[0].Points.Clear();
+            chart1.Series[1].Points.Clear();
+        }
     }
 }

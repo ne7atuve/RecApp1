@@ -31,12 +31,20 @@
             this.components = new System.ComponentModel.Container();
             Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
             Microsoft.Reporting.WinForms.ReportDataSource reportDataSource2 = new Microsoft.Reporting.WinForms.ReportDataSource();
-            this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
             this.cReportInputBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.cReportOutputBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
             ((System.ComponentModel.ISupportInitialize)(this.cReportInputBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cReportOutputBindingSource)).BeginInit();
             this.SuspendLayout();
+            // 
+            // cReportInputBindingSource
+            // 
+            this.cReportInputBindingSource.DataSource = typeof(RecApp.cReportInput);
+            // 
+            // cReportOutputBindingSource
+            // 
+            this.cReportOutputBindingSource.DataSource = typeof(RecApp.cReportOutput);
             // 
             // reportViewer1
             // 
@@ -53,14 +61,6 @@
             this.reportViewer1.Size = new System.Drawing.Size(716, 474);
             this.reportViewer1.TabIndex = 0;
             // 
-            // cReportInputBindingSource
-            // 
-            this.cReportInputBindingSource.DataSource = typeof(RecApp.cReportInput);
-            // 
-            // cReportOutputBindingSource
-            // 
-            this.cReportOutputBindingSource.DataSource = typeof(RecApp.cReportOutput);
-            // 
             // frmReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -68,7 +68,7 @@
             this.ClientSize = new System.Drawing.Size(716, 474);
             this.Controls.Add(this.reportViewer1);
             this.Name = "frmReport";
-            this.Text = "frmReport";
+            this.Text = "Расчет керамического рекуператора";
             this.Load += new System.EventHandler(this.frmReport_Load);
             ((System.ComponentModel.ISupportInitialize)(this.cReportInputBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cReportOutputBindingSource)).EndInit();
